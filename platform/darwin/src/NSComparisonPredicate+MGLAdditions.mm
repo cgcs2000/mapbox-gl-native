@@ -115,14 +115,7 @@
             return @[op, leftHandPredicate.mgl_jsonExpressionObject, rightHandPredicate.mgl_jsonExpressionObject];
         }
         case NSInPredicateOperatorType: {
-            NSMutableArray *elements = [NSMutableArray arrayWithObjects:@"match", self.leftExpression.mgl_jsonExpressionObject, nil];
-            NSArray *optionsExpressions = self.rightExpression.constantValue;
-            for (id object in optionsExpressions) {
-                id option = ((NSExpression *)object).mgl_jsonExpressionObject;
-                [elements addObject:option];
-                [elements addObject:@YES];
-            }
-            [elements addObject:@NO];
+            NSMutableArray *elements = [NSMutableArray arrayWithObjects:@"match", self.leftExpression.mgl_jsonExpressionObject, self.rightExpression.mgl_jsonExpressionObject, @YES, @NO, nil];
             return elements;
         }
         case NSContainsPredicateOperatorType: {
