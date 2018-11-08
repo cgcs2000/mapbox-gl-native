@@ -1,5 +1,5 @@
 {
-  "name": "@mapbox/mapbox-gl-native",
+  "name": "@jingsam/mapbox-gl-native",
   "version": "4.0.0",
   "description": "Renders map tiles with Mapbox GL",
   "keywords": [
@@ -9,7 +9,7 @@
   "main": "platform/node/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mapbox/mapbox-gl-native.git"
+    "url": "git://github.com/jingsam/mapbox-gl-native.git"
   },
   "license": "BSD-2-Clause",
   "dependencies": {
@@ -53,8 +53,8 @@
   "binary": {
     "module_name": "mbgl",
     "module_path": "./lib/{node_abi}",
-    "host": "https://mapbox-node-binary.s3.amazonaws.com",
-    "remote_path": "./{name}/v{version}",
+    "host": "https://www.foxgis.com",
+    "remote_path": "./node-binary/{name}/v{version}",
     "package_name": "{node_abi}-{platform}-{arch}-{configuration}.tar.gz"
   }
 }

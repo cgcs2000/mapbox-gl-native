@@ -29,14 +29,15 @@ static mapbox::geometry::point<double> getMercCoord(int32_t x, int32_t y, int8_t
 }
 
 static std::string getTileBBox(int32_t x, int32_t y, int8_t z) {
-    // Alter the y for the Google/OSM tile scheme.
-    y = std::pow(2, z) - y - 1;
+    double scale = 360.0 / std::pow(2, z);
 
-    auto min = getMercCoord(x * 256, y * 256, z);
-    auto max = getMercCoord((x + 1) * 256, (y + 1) * 256, z);
+    double minX = x * scale - 180;
+    double minY = 90 - (y + 1) * scale;
+    double maxX = (x + 1) * scale - 180;
+    double maxY = 90 - y * scale;
 
-    return (util::toString(min.x) + "," + util::toString(min.y) + "," +
-            util::toString(max.x) + "," + util::toString(max.y));
+    return (util::toString(minX) + "," + util::toString(minY) + "," +
+            util::toString(maxX) + "," + util::toString(maxY));
 }
 
 Resource Resource::style(const std::string& url) {
@@ -113,7 +114,7 @@ Resource Resource::tile(const std::string& urlTemplate,
                 return util::toString(y);
             } else if (token == "quadkey") {
                 return getQuadKey(x, y, z);
-            } else if (token == "bbox-epsg-3857") {
+            } else if (token == "bbox-epsg-4490") {
                 return getTileBBox(x, y, z);
             } else if (token == "prefix") {
                 std::string prefix{ 2 };
