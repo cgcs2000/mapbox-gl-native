@@ -97,7 +97,7 @@ private:
         const double latitude = util::clamp(latLng.latitude(), -util::LATITUDE_MAX, util::LATITUDE_MAX);
         return Point<double> {
             util::LONGITUDE_MAX + latLng.longitude(),
-            util::LATITUDE_MAX - latLng.latitude()
+            util::LATITUDE_MAX - latitude
         } * worldSize / util::DEGREES_MAX;
     }
 };

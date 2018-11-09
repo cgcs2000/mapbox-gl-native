@@ -20,14 +20,6 @@ static std::string getQuadKey(int32_t x, int32_t y, int8_t z) {
     return quadKey;
 }
 
-static mapbox::geometry::point<double> getMercCoord(int32_t x, int32_t y, int8_t z) {
-    double resolution = (util::M2PI * util::EARTH_RADIUS_M / 256) / std::pow(2, z);
-    return {
-        x * resolution - util::M2PI * util::EARTH_RADIUS_M / 2,
-        y * resolution - util::M2PI * util::EARTH_RADIUS_M / 2,
-    };
-}
-
 static std::string getTileBBox(int32_t x, int32_t y, int8_t z) {
     double scale = 360.0 / std::pow(2, z);
 
