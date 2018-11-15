@@ -55,17 +55,14 @@ public:
         const double constrainedLatitude = util::clamp(latLng.latitude(), -util::LATITUDE_MAX, util::LATITUDE_MAX);
         const double constrainedLongitude = util::clamp(latLng.longitude(), -util::LONGITUDE_MAX, util::LONGITUDE_MAX);
 
-        const double m = 1 - 1e-15;
-        const double f = util::clamp(std::sin(util::DEG2RAD * constrainedLatitude), -m, m);
-
         const double easting  = util::EARTH_RADIUS_M * constrainedLongitude * util::DEG2RAD;
-        const double northing = 0.5 * util::EARTH_RADIUS_M * std::log((1 + f) / (1 - f));
+        const double northing  = util::EARTH_RADIUS_M * constrainedLatitude * util::DEG2RAD;
 
         return ProjectedMeters(northing, easting);
     }
 
     static LatLng latLngForProjectedMeters(const ProjectedMeters& projectedMeters) {
-        double latitude = (2 * std::atan(std::exp(projectedMeters.northing() / util::EARTH_RADIUS_M)) - (M_PI / 2.0)) * util::RAD2DEG;
+        double latitude = projectedMeters.northing() * util::RAD2DEG / util::EARTH_RADIUS_M;
         double longitude = projectedMeters.easting() * util::RAD2DEG / util::EARTH_RADIUS_M;
 
         latitude = util::clamp(latitude, -util::LATITUDE_MAX, util::LATITUDE_MAX);
